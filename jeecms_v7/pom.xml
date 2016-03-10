@@ -328,7 +328,27 @@
 					</webResources>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <port>8080</port>
+                    <path>/jeecms_v7</path>
+                    <uriEncoding>UTF-8</uriEncoding>
+                    <finalName>jeecms_v7</finalName>
+                    <server>tomcat7</server>
+                    <warSourceDirectory>${basedir}/WebContent</warSourceDirectory>
+                    <webResources>
+						<resource>
+							<directory>WebContent</directory>
+						</resource>
+					</webResources>
+                </configuration>
+			</plugin>
 		</plugins>
 	</build>
   
+  	
 </project>
