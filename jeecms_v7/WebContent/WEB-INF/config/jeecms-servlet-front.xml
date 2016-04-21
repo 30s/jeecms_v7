@@ -20,7 +20,7 @@
 		</property>
 	</bean>
 	
-	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">	<!-- 拦截器 -->
 		<property name="interceptors">
 			<list>
 				<ref bean="frontContextInterceptor"/>
@@ -28,8 +28,8 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="frontContextInterceptor" class="com.jeecms.cms.web.FrontContextInterceptor"/>
-	<bean id="frontLocaleInterceptor" class="com.jeecms.cms.web.FrontLocaleInterceptor"/>
+	<bean id="frontContextInterceptor" class="com.jeecms.cms.web.FrontContextInterceptor"/>	<!-- CMS上下文信息拦截器     包括登录信息、权限信息、站点信息 -->
+	<bean id="frontLocaleInterceptor" class="com.jeecms.cms.web.FrontLocaleInterceptor"/>		<!-- 前台本地化信息拦截器 -->
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="cookieName" value="clientlanguage"/>
 		<property name="cookieMaxAge" value="-1"/>
@@ -53,7 +53,7 @@
 	</bean>
 	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
 		<!--获取标签配置-->
-		<property name="freemarkerVariables" value="#{propertyUtils.getBeanMap('directive.')}"/>
+		<property name="freemarkerVariables" value="#{propertyUtils.getBeanMap('directive.')}"/>		<!-- 一堆标签 -->
 		<property name="templateLoaderPath" value=""/>
 		<property name="freemarkerSettings">
 			<props>
