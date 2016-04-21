@@ -219,7 +219,9 @@ public class RequestUtils {
 		UrlPathHelper helper = new UrlPathHelper();
 		StringBuffer buff = request.getRequestURL();
 		String uri = request.getRequestURI();
+		log.debug("uri:【{}】",uri);
 		String origUri = helper.getOriginatingRequestUri(request);
+		log.debug("origUri:【{}】",origUri);
 		buff.replace(buff.length() - uri.length(), buff.length(), origUri);
 		String queryString = helper.getOriginatingQueryString(request);
 		if (queryString != null) {

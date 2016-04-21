@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.jeecms.cms.action.directive.abs.AbstractCmsGuestbookDirective;
 import com.jeecms.cms.entity.assist.CmsGuestbook;
@@ -31,6 +33,7 @@ import freemarker.template.TemplateModel;
  * 评论列表标签
  */
 public class CmsGuestbookListDirective extends AbstractCmsGuestbookDirective {
+	private static final Logger log = LoggerFactory.getLogger(CmsGuestbookListDirective.class);
 	/**
 	 * 模板名称
 	 */
@@ -44,6 +47,7 @@ public class CmsGuestbookListDirective extends AbstractCmsGuestbookDirective {
 	@SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
+		log.debug("[CmsGuestbookListDirective.execute begin]");
 		CmsSite site = FrontUtils.getSite(env);
 		int first = FrontUtils.getFirst(params);
 		int max = FrontUtils.getCount(params);

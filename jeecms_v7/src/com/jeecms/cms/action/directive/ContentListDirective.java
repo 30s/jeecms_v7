@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.jeecms.cms.action.directive.abs.AbstractContentDirective;
 import com.jeecms.cms.entity.main.Content;
@@ -31,6 +33,7 @@ import freemarker.template.TemplateModel;
  * 内容列表标签
  */
 public class ContentListDirective extends AbstractContentDirective {
+	private static final Logger log = LoggerFactory.getLogger(ContentListDirective.class);
 	/**
 	 * 模板名称
 	 */
@@ -44,6 +47,7 @@ public class ContentListDirective extends AbstractContentDirective {
 	@SuppressWarnings("unchecked")
 	public void execute(Environment env, Map params, TemplateModel[] loopVars,
 			TemplateDirectiveBody body) throws TemplateException, IOException {
+		log.debug("[ContentListDirective.execute begin]");
 		CmsSite site = FrontUtils.getSite(env);
 		List<Content> list = getList(params, env);
 

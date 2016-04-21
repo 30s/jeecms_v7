@@ -21,6 +21,7 @@ import com.jeecms.core.manager.AuthenticationMng;
 import com.jeecms.core.web.WebCoreErrors;
 
 /**
+ * ===============  这个类现在应该没有用到============
  * 统一认证中心Action
  * 
  * 统一认证中心由两个方面组成。
