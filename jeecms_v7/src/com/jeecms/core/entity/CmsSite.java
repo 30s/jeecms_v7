@@ -118,8 +118,13 @@ public class CmsSite extends BaseCmsSite {
 				url.append(":").append(getPort());
 			}
 		}
+		//为什么context path 第一个字符是空格而不是"/"?
 		if (!StringUtils.isBlank(ctx)) {
-			url.append(ctx);
+			if (" ".equals(ctx.substring(0, 1))){
+				url.append("/").append(ctx.substring(1));
+			}else{
+				url.append("/").append(ctx);
+			}
 		}
 		if (dynamic) {
 			String servlet = getServletPoint();
