@@ -3,12 +3,14 @@ package com.jeecms.core.web.util;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UrlPathHelper;
 
 /**
  * URI帮助类
  */
 public class URLHelper {
+	private static org.slf4j.Logger logger =  LoggerFactory.getLogger(URLHelper.class);
 	/**
 	 * 获得页号
 	 * 
@@ -42,7 +44,9 @@ public class URLHelper {
 	public static String getURI(HttpServletRequest request) {
 		UrlPathHelper helper = new UrlPathHelper();
 		String uri = helper.getOriginatingRequestUri(request);
+		logger.debug("uri: 【{}】", uri);
 		String ctx = helper.getOriginatingContextPath(request);
+		logger.debug("context path: 【{}】",ctx);
 		if (!StringUtils.isBlank(ctx)) {
 			return uri.substring(ctx.length());
 		} else {
@@ -187,7 +191,9 @@ public class URLHelper {
 		if (!uri.startsWith("/")) {
 			throw new IllegalArgumentException("URI must start width '/'");
 		}
-		int bi = uri.indexOf("_");
+		
+		//工程名是jeecms_v7，带了下划线，导致出错 T_T
+		int bi = uri.replace("jeecms_v7", "jeecmsv7").indexOf("_");
 		int mi = uri.indexOf("-");
 		int pi = uri.indexOf(".");
 		int lastSpt = uri.lastIndexOf("/") + 1;
