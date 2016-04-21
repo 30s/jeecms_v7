@@ -95,7 +95,10 @@ public class RegisterAct {
 		}
 		String ip = RequestUtils.getIpAddr(request);
 		Map<String,String>attrs=RequestUtils.getRequestMap(request, "attr_");
-		if (config.getEmailValidate()) {
+		//jc_config表的EMAIL_VALIDATE决定是否开启邮件验证
+		//暂时通通关闭邮件验证已保证流程能跑通
+		boolean isOpen = false;
+		if (config.getEmailValidate() && isOpen) {
 			EmailSender sender = configMng.getEmailSender();
 			MessageTemplate msgTpl = configMng.getRegisterMessageTemplate();
 			if (sender == null) {
@@ -119,6 +122,10 @@ public class RegisterAct {
 					model.addAttribute("status", 101);
 					model.addAttribute("message", e.getMessage());
 					log.error("send email exception.", e);
+				}catch (Exception e){
+					model.addAttribute("status", 101);
+					model.addAttribute("message", e.getMessage());
+					log.error("send email exception:",e);
 				}
 			}
 			log.info("member register success. username={}", username);
