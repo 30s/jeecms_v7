@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.propertyeditors.LocaleEditor;
 import org.springframework.context.MessageSource;
 
@@ -42,6 +43,7 @@ import freemarker.template.TemplateNumberModel;
  * 前台工具类
  */
 public class FrontUtils {
+	private static org.slf4j.Logger logger =  LoggerFactory.getLogger(FrontUtils.class);
 	/**
 	 * 页面没有找到
 	 */
@@ -310,6 +312,7 @@ public class FrontUtils {
 			Map<String, Object> map, CmsSite site) {
 		CmsUser user = CmsUtils.getUser(request);
 		String location = RequestUtils.getLocation(request);
+		logger.debug("location:【{}】", location);
 		Long startTime = (Long) request.getAttribute(START_TIME);
 		frontData(map, site, user, location, startTime);
 	}
@@ -324,8 +327,8 @@ public class FrontUtils {
 		}
 		map.put(SITE, site);
 		String ctx = site.getContextPath() == null ? "" : site.getContextPath();
-		map.put(BASE, ctx);
-		map.put(RES_SYS, ctx + RES_PATH);
+		map.put(BASE, ctx.startsWith(" ")?ctx.substring(1):ctx);				//奇怪的首个空格
+		map.put(RES_SYS,  ctx.startsWith(" ")?"/"+ctx.substring(1)+ RES_PATH:"/"+ctx + RES_PATH); //奇怪的首个空格
 		String res = ctx + RES_PATH + "/" + site.getPath() + "/"
 				+ site.getTplSolution();
 		// res路径需要去除第一个字符'/'
